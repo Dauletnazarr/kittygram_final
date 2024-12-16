@@ -1,4 +1,3 @@
-# docker-compose.production.yml
 version: '3'
 
 volumes:
@@ -6,7 +5,6 @@ volumes:
   static_volume:
   media_volume:
 
-# Всё отличие — заменяем build на image и указываем, какой образ использовать
 services:
   db:
     image: postgres:13.10
@@ -18,21 +16,17 @@ services:
   backend:
     image: dauletnazar/kittygram_backend
     env_file: .env
-    # command:
-    #   - cd backend/
-    #   - python manage.py collectstatic
-    #   - cp -r /app/static/. /static/static/
     volumes:
       - static_volume:/static
       - media_volume:/app/media/
   frontend:
-    image: dauletnazar/kittygram_frontend  # Качаем с Docker Hub
+    image: dauletnazar/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /static/
     volumes:
       - static_volume:/static
   gateway:
-    image: dauletnazar/kittygram_gateway  # Качаем с Docker Hub
+    image: dauletnazar/kittygram_gateway
     env_file: .env
     depends_on:
       - db
