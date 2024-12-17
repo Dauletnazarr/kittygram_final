@@ -16,8 +16,8 @@ services:
   backend:
     image: dauletnazar/kittygram_backend
     env_file: .env
-    depends_on:
-      - db
+    # depends_on:  # у меня не запускается бекенд, когда я так делаю
+    #   - db
     volumes:
       - static_volume:/static
       - media_volume:/app/media/
